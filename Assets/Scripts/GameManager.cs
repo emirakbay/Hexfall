@@ -5,27 +5,32 @@ public class GameManager : MonoBehaviour
 {
     public Text scoreText;
 
+    public int score = 0;
+
     public static GameManager Instance;
+
+    private void Update()
+    {
+        SetScore();
+    }
 
     private void Awake()
     {
         Instance = this;
     }
 
-    // Start is called before the first frame update
-    void Start()
+    public void SetScore()
     {
-        scoreText = gameObject.GetComponent<Text>();
+        scoreText.text = score.ToString();
     }
 
-    // Update is called once per frame
-    void Update()
+    public int GetScore()
     {
-        
+        return score;
     }
 
-    public void UpdateScore()
+    public void UpdateScore(int scoreMultiplier)
     {
-        scoreText.text += 5;
+        score = score + 5 * scoreMultiplier;
     }
 }

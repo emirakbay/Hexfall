@@ -32,7 +32,6 @@ public class ObjectPooler : MonoBehaviour
             {
                 var poolList = poolDictionary[item];
                 GameObject goToAdd = Instantiate((GameObject)objectDictionary[item]);
-                goToAdd.name = "Hex_abc";
                 goToAdd.SetActive(false);
                 goToAdd.transform.SetParent(transform);
                 poolList.Add(goToAdd);
@@ -81,5 +80,6 @@ public class ObjectTypeToObject : SerializableDictionaryBase<ObjectTypes, Object
 public enum ObjectTypes
 {
     Hexagon,
-    Particles
+    Particles,
+    Bomb
 }

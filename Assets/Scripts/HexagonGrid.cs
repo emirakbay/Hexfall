@@ -4,7 +4,6 @@ using UnityEngine;
 using System.Linq;
 using System;
 using Random = UnityEngine.Random;
-using UnityEngine.UI;
 
 public class HexagonGrid : MonoBehaviour
 {
@@ -14,8 +13,6 @@ public class HexagonGrid : MonoBehaviour
     public int gridHeight;
 
     public float verticalOffset, horizontalOffset;
-
-    public GameObject GridObject;
 
     public Vector3 GridStartPosition;
     public Vector3 GridObjectRotation;
@@ -40,8 +37,6 @@ public class HexagonGrid : MonoBehaviour
     void Start()
     {
         CreateGrid();
-
-        
     }
 
     void CreateGrid()
@@ -124,10 +119,9 @@ public class HexagonGrid : MonoBehaviour
         }
         return returnPos;
     }
-
+    
     void FakeGravity()
     {
-
         for (int i = 0; i < gridWidth; i++)
         {
             var tempList = gridObjectDictionary.Values.Where(x => x.objectValues.gridPosition.x == i).ToList();
@@ -376,6 +370,7 @@ public class HexagonGrid : MonoBehaviour
                     gridObjectDictionary.Remove(hex.objectValues.gridPosition);
                     var psObject = ObjectPooler.Instance.GetObject(ObjectTypes.Particles);
                     psObject.transform.position = hex.gameObject.transform.position;
+                    GameManager.Instance.UpdateScore(neighbourList.Count);
                     Utility.PlayParticles(psObject, hex.objectValues.objectColor);
                     ObjectPooler.Instance.ReturnObject(ObjectTypes.Hexagon, hex.gameObject);
                     StartCoroutine(Utility.Delay(2f, () => ObjectPooler.Instance.ReturnObject(ObjectTypes.Particles, psObject)));
